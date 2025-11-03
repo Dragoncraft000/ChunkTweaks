@@ -35,7 +35,13 @@ vec4 sampleNearest(sampler2D sampler, vec2 uv, vec2 pixelSize) {
 }
 
 void main() {
-    vec4 color = sampleNearest(Sampler0, texCoord0, 1.0f / TextureSize) * vertexColor;
+    vec4 color = sampleNearest(Sampler0, texCoord0, 1f / TextureSize) * vertexColor;
+
+    if (useChunkPixelateFadeIn) {
+        float fade = pow(2,floor((1 - ChunkVisibility) * 5));
+        color = sampleNearest(Sampler0, texCoord0, fade / TextureSize) * vertexColor;
+    }
+
    // color = mix(FogColor * vec4(1, 1, 1, color.a), color, ChunkVisibility);
     
     if (useTransparentFadeIn) {

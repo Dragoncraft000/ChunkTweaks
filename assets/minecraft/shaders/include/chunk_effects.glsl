@@ -7,7 +7,7 @@ bool useTransparentRenderDistanceFog = true;
 bool useTransparentFadeIn = false;
 
 // Makes chunks fly in from a specified direction like the Smooth Chunks mod
-bool chunksFlyIn = true;
+bool chunksFlyIn = false;
 // Here you can define a custom animation function to use for the 
 float chunksFlyInFunction(float x) {
     return x * x * x;
@@ -26,3 +26,7 @@ float chunksScaleFunction(float x) {
 // How much each chunk scales. Values higher than 1 can lead to unexpected results.
 float chunkScaleAmount = 1;
 
+// Makes chunks start pixelated and get less pixelated while fading in
+bool useChunkPixelateFadeIn = true;
+ // 5 -> 1x1   |   4 -> 2x2   |   3 -> 4x4   |   2 -> 8x8
+int maxPower = 5;
