@@ -2,9 +2,16 @@
 // Especially helps with Ocean chunks on the Render Distance Edge
 bool useTransparentRenderDistanceFog = true;
 
+// Works the same as transparent render distance fog, replaces the algorithm with noise instead of ordered dithering
+bool useNoiseRenderDistanceFog = false;
+float distanceNoiseScale = 2.5;
 
 // Makes chunks fade in using dithering when loaded
 bool useTransparentFadeIn = false;
+
+// Makes chunks fade in using a noise dissolve effect when loaded
+bool useDissolveFadeIn = true;
+float dissolveScale = 0.25;
 
 // Makes chunks fly in from a specified direction like the Smooth Chunks mod
 bool chunksFlyIn = false;
@@ -27,6 +34,6 @@ float chunksScaleFunction(float x) {
 float chunkScaleAmount = 1;
 
 // Makes chunks start pixelated and get less pixelated while fading in
-bool useChunkPixelateFadeIn = true;
+bool useChunkPixelateFadeIn = false;
  // 5 -> 1x1   |   4 -> 2x2   |   3 -> 4x4   |   2 -> 8x8
 int maxPower = 5;

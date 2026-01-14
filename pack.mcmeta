@@ -1,7 +1,9 @@
 {
     "pack": {
-        "max_format": 72,
+        "pack_format": 72,
+
         "min_format": 72,
+        "max_format": 76,
         "description": "§9Improved Chunk Fading"
     }
 }

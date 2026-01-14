@@ -1,10 +1,13 @@
 #version 330
 
 #moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:chunksection.glsl>
+#moj_import <minecraft:projection.glsl>
+
 #moj_import <utils.glsl>
 #moj_import <fragment_utils.glsl>
-#moj_import <minecraft:chunk_effects.glsl>
+#moj_import <chunk_effects.glsl>
 uniform sampler2D Sampler0;
 
 in float sphericalVertexDistance;
@@ -12,6 +15,7 @@ in float cylindricalVertexDistance;
 in vec4 vertexColor;
 in vec2 texCoord0;
 in vec3 vertexPosition;
+in vec3 worldPosition;
 
 out vec4 fragColor;
 
@@ -49,8 +53,21 @@ void main() {
         dither(tColor,gl_FragCoord.xy);
     }
 
+    else if (useDissolveFadeIn) {
+        if (noise((worldPosition * dissolveScale)) > ChunkVisibility) {
+            discard;
+        }
+    }
 
-    if (useTransparentRenderDistanceFog) {
+
+    if (useNoiseRenderDistanceFog) {
+        float fogValue = 1-total_fog_value(sphericalVertexDistance, cylindricalVertexDistance, 10000000, 1000000, FogRenderDistanceStart, FogRenderDistanceEnd);
+        vec4 tColor = vec4(fogValue);
+        if (noise(worldPosition * distanceNoiseScale) > fogValue) {
+            discard;
+        }
+    }
+    else if (useTransparentRenderDistanceFog) {
         float fogValue = 1-total_fog_value(sphericalVertexDistance, cylindricalVertexDistance, 10000000, 1000000, FogRenderDistanceStart, FogRenderDistanceEnd);
         vec4 tColor = vec4(fogValue);
         dither(vec4(tColor),gl_FragCoord.xy);
